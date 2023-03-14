@@ -1,4 +1,5 @@
 {
+  "homepage": "https://andrey999k.github.io/messenger-react",
   "name": "clout-test",
   "version": "0.1.0",
   "private": true,
@@ -12,6 +13,7 @@
     "@types/react-dom": "^17.0.14",
     "axios": "^0.26.1",
     "dayjs": "^1.11.7",
+    "gh-pages": "^5.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.0",
@@ -23,7 +25,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

@@ -5,6 +5,6 @@ import dayjs from "dayjs";
 
 export const Time: FC<ITime> = ({time}) => {
     return (
-        <div className="time">{dayjs(time).format('HH:mm')}</div>
+        <div className="time">{dayjs(time * 1000).format('HH:mm')}</div>
     )
 }

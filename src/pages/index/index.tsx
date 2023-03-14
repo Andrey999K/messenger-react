@@ -5,9 +5,6 @@ import {ChatItemList} from "../../components/ChatItemList";
 import {Header} from "../../components/Header";
 import sprite from "../../img/sprite.svg";
 import {IMessage} from "../../components/ChatItemList/interface";
-import {Message} from "../../components/Message";
-import {NewMessage} from "../../components/NewMessage";
-import {SystemMessage} from "../../components/SystemMessage";
 import axios from "axios";
 import dayjs from "dayjs";
 import {MessageWrapper} from "../../components/messageWrapper";
@@ -19,6 +16,33 @@ export const PageIndex: FC<IPage> = (props: IPage) => {
     const [messageText, setMessageText] = useState("");
     const [messages, setMessages] = useState<IMessageWrapper[]>([]);
 
+    const changeStructureMessages = (data: IMessage[]) => {
+        let massMessages = sortMessages(data);
+        let dataMessages = [];
+        for (let i = 0; i < massMessages.length; i++) {
+
+            if (i > 0) {
+                dataMessages.push(
+                    {
+                        message: massMessages[i],
+                        newDay: dayjs(massMessages[i].created_at * 1000).format('D.MM.YYYY') !==
+                            dayjs(massMessages[i - 1].created_at * 1000).format('D.MM.YYYY'),
+                        firstMessage: massMessages[i].user.id !== massMessages[i - 1].user.id
+                    }
+                );
+            } else {
+                dataMessages.push(
+                    {
+                        message: massMessages[i],
+                        newDay: true,
+                        firstMessage: true
+                    }
+                );
+            }
+        }
+        setMessages(dataMessages);
+    }
+
     const sortMessages = (messagesMass: IMessage[]) => {
         return messagesMass.sort((a:IMessage, b:IMessage) => a.created_at - b.created_at);
     }
@@ -27,44 +51,34 @@ export const PageIndex: FC<IPage> = (props: IPage) => {
         axios
             .get(`https://api.lenzaos.com/test/message.get?chat_id=${chatId}&offset=0&limit=20`)
             .then(data => {
-                let massMessages = sortMessages(data.data.response);
-                let dataMessages = [];
-                for (let i = 0; i < massMessages.length; i++) {
-
-                    if (i > 0) {
-                        dataMessages.push(
-                            {
-                                message: massMessages[i],
-                                newDay: dayjs(massMessages[i].created_at * 1000).format('D.MM.YYYY') !==
-                                    dayjs(massMessages[i - 1].created_at * 1000).format('D.MM.YYYY'),
-                                firstMessage: massMessages[i].user.id !== massMessages[i - 1].user.id
-                            }
-                        );
-                    } else {
-                        dataMessages.push(
-                            {
-                                message: massMessages[i],
-                                newDay: true,
-                                firstMessage: true
-                            }
-                        );
-                    }
-                }
-                setMessages(dataMessages);
-                // setMessages(sortMessages(data.data.response));
+                changeStructureMessages(data.data.response);
+            })
+            .catch(error => {
+                axios
+                    .get(`data/messages/${chatId}.json`)
+                    .then(data => {
+                        changeStructureMessages(data.data.response);
+                    });
             });
     }
 
     useEffect(() => {
-        console.log(messages);
-    }, [messages])
-
-    useEffect(() => {
+        let statusCode;
         axios
             .get("https://api.lenzaos.com/test/chat.get?offset=1&limit=20")
             .then(data => {
-                setChats(data.data.response);
+                statusCode = data.status;
+                if (data.status === 200) {
+                    setChats(data.data.response);
+                }
             });
+        if (statusCode !== 200) {
+            axios
+                .get("data/chat.json")
+                .then(data => {
+                    setChats(data.data.response);
+                });
+        }
     }, [])
 
     const [inputValue, setInputValue] = useState("");
@@ -87,7 +101,8 @@ export const PageIndex: FC<IPage> = (props: IPage) => {
                     value={messageText}
                     iconAttach={sprite + "#attach"}
                     iconSend={sprite + "#send"}
-                    onChange={event => setMessageText(event.target.value)}/>
+                    onChange={event => setMessageText(event.target.value)}
+                />
             </div>
         </div>
     )
