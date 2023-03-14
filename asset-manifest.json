@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/messenger-react/static/css/main.9133bc18.css",
-    "main.js": "/messenger-react/static/js/main.13b10f24.js",
+    "main.js": "/messenger-react/static/js/main.02414048.js",
     "static/js/787.54ed6284.chunk.js": "/messenger-react/static/js/787.54ed6284.chunk.js",
     "static/media/Lato-Regular.ttf": "/messenger-react/static/media/Lato-Regular.9d883d540ee2b4de8024.ttf",
     "static/media/Lato-Bold.ttf": "/messenger-react/static/media/Lato-Bold.636be8de934918e38ed9.ttf",
     "static/media/sprite.svg": "/messenger-react/static/media/sprite.a79320ca715a2ae26a5763f531c7d840.svg",
     "index.html": "/messenger-react/index.html",
     "main.9133bc18.css.map": "/messenger-react/static/css/main.9133bc18.css.map",
-    "main.13b10f24.js.map": "/messenger-react/static/js/main.13b10f24.js.map",
+    "main.02414048.js.map": "/messenger-react/static/js/main.02414048.js.map",
     "787.54ed6284.chunk.js.map": "/messenger-react/static/js/787.54ed6284.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9133bc18.css",
-    "static/js/main.13b10f24.js"
+    "static/js/main.02414048.js"
   ]
 }
