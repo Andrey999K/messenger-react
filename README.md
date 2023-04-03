@@ -21,4 +21,11 @@ Pet-проект с использованием js-фреймворка **React
 Компоненты:
   1. **ChatItemList**  
   Панель чатов.
-  2. **Header**
+  2. **Header**  
+  Элемент header
+  3. **Input**
+  4. **Message**
+  5. **NewMessage**
+  6. **SystemMessage**
+  7. **Time**
+  8. **MessageWrapper**
