@@ -24,8 +24,14 @@ Pet-проект с использованием js-фреймворка **React
   2. **Header**  
   Элемент header
   3. **Input**
+  Элемент input
   4. **Message**
+  message
   5. **NewMessage**
+  NewMessage
   6. **SystemMessage**
+  SystemMessage
   7. **Time**
+  Time
   8. **MessageWrapper**
+  MessageWrapper
